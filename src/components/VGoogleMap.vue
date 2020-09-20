@@ -1,11 +1,6 @@
 <template>
   <div>
-    <GmapMap
-      :center="marker.position"
-      :zoom="15"
-      map-type-id="terrain"
-      style="width: 500px; height: 300px"
-    >
+    <GmapMap class="google-map" :center="marker.position" :zoom="15" map-type-id="terrain">
       <GmapMarker :icon="flag" :position="marker.position" :clickable="true" @click="show" />
     </GmapMap>
   </div>
@@ -33,3 +28,16 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.google-map {
+  width: 100%;
+  height: 700px;
+}
+
+@media screen and (max-width: 400px) {
+  .google-map {
+    height: 600px;
+  }
+}
+</style>

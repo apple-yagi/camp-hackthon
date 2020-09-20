@@ -1,10 +1,10 @@
 <template>
-  <div class="mt-10">
+  <div class="home">
     <div v-if="loading" class="text-center">
       <v-progress-circular :size="50" width="7" color="primary" indeterminate />
     </div>
     <v-layout v-else justify-center>
-      <v-card>
+      <v-card class="google-map-card">
         <v-card-title>Current Position</v-card-title>
         <v-card-text>
           <v-google-map :marker="currentPosition" />
@@ -53,3 +53,24 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.home {
+  margin-top: 50px;
+}
+
+.google-map-card {
+  width: 90%;
+}
+
+@media screen and (max-width: 600px) {
+  .home {
+    margin: 0;
+    padding: 0;
+  }
+
+  .google-map-card {
+    width: 100%;
+  }
+}
+</style>

@@ -8,7 +8,7 @@
       </div>
     </v-app-bar>
 
-    <v-main class="base-color">
+    <v-main class="base-setting">
       <router-view />
     </v-main>
   </v-app>
@@ -26,8 +26,10 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
-.base-color {
+<style>
+.base-setting {
   background-color: whitesmoke;
+  margin: 0;
+  padding: 0;
 }
 </style>
