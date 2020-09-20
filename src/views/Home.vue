@@ -4,7 +4,12 @@
       <v-progress-circular :size="50" width="7" color="primary" indeterminate />
     </div>
     <v-layout v-else justify-center>
-      <v-google-map :marker="currentPosition" />
+      <v-card>
+        <v-card-title>Current Position</v-card-title>
+        <v-card-text>
+          <v-google-map :marker="currentPosition" />
+        </v-card-text>
+      </v-card>
     </v-layout>
   </div>
 </template>
@@ -17,6 +22,7 @@ import {
   GeoError,
 } from "@/interfaces/geolocation-position";
 import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
+import _location from "@/utils/location";
 
 export default Vue.extend({
   name: "Home",
@@ -28,46 +34,22 @@ export default Vue.extend({
     currentPosition: {} as GoogleMapsMarker,
   }),
   mounted() {
-    if (!navigator.geolocation) {
-      alert("現在地情報を取得できませんでした");
-      return;
-    }
-
-    const options = {
-      enableHighAccuracy: false,
-      timeout: 5000,
-      maximumAge: 0,
-    };
-
-    navigator.geolocation.getCurrentPosition(this.success, this.error, options);
-  },
-  methods: {
-    success(position: GeolocationPosition) {
-      this.currentPosition = {
-        position: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        },
-      };
-      this.loading = false;
-    },
-    error(error: GeoError) {
-      switch (error.code) {
-        case 1: // PERMISSION_DENIED
-          alert("位置情報の利用が許可されていません");
-          break;
-        case 2: // POSITION_UNAVAILABLE
-          alert("現在位置が取得できませんでした");
-          break;
-        case 3: // TIMEOUT
-          alert("タイムアウトになりました");
-          break;
-        default:
-          alert("現在位置が取得できませんでした");
-          break;
-      }
-      this.loading = false;
-    },
+    _location
+      .loadCurrentPosition()
+      .then((position) => {
+        this.currentPosition = {
+          position: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          },
+        };
+      })
+      .catch((error: GeoError) => {
+        alert("現在位置が取得できませんでした");
+      })
+      .finally(() => {
+        this.loading = false;
+      });
   },
 });
 </script>
