@@ -1,28 +1,30 @@
 <template>
   <div>
     <GmapMap
-      :center="{ lat: 10, lng: 10 }"
-      :zoom="7"
+      :center="marker.position"
+      :zoom="15"
       map-type-id="terrain"
       style="width: 500px; height: 300px"
     >
       <GmapMarker
-        v-for="(m, index) in markers"
-        :key="index"
-        :position="m.position"
+        :position="marker.position"
         :clickable="true"
         :draggable="true"
-        @click="center = m.position"
       />
     </GmapMap>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
+import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
+
 export default Vue.extend({
-  data: () => ({
-    markers: [{ position: { lat: 10, lng: 10 } }],
-  }),
+  props: {
+    marker: {
+      type: Object as PropType<GoogleMapsMarker>,
+      required: true,
+    },
+  },
 });
 </script>
