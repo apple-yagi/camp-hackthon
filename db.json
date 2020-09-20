@@ -2,7 +2,7 @@
   "posts": [{
       "id": 1,
       "title": "カブトムシ",
-      "image": "/Users/ryuya/Project/camp-hackthon/src/assets/sample/trypoxylus.jpg",
+      "image": "https://tokyo-eventplus.com/wp-content/uploads/2020/07/429eee0870a4c6fd1c789afada603072-700x500.jpg",
       "category": "insect",
       "lat": 33.72,
       "lng": 130.454
@@ -10,7 +10,7 @@
     {
       "id": 2,
       "title": "クワガタ",
-      "image": "/Users/ryuya/Project/camp-hackthon/src/assets/sample/sikakuro.jpg",
+      "image": "https://dorcusdanke.itembox.design/item/img/sikakuro.jpg",
       "category": "insect",
       "lat": 33.69,
       "lng": 130.464
@@ -18,7 +18,7 @@
     {
       "id": 3,
       "title": "ヘラクロスオオカブト",
-      "image": "/Users/ryuya/Project/camp-hackthon/src/assets/sample/heracress.jpg",
+      "image": "https://weblio.hs.llnwd.net/e7/img/dict/kwgtz/155-1-t2.jpg",
       "category": "insect",
       "lat": 33.71,
       "lng": 130.424
