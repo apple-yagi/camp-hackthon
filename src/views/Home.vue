@@ -10,16 +10,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import VGoogleMap from '@/components/VGoogleMap.vue';
+import Vue from "vue";
+import VGoogleMap from "@/components/VGoogleMap.vue";
 import {
   GeolocationPosition,
   GeoError,
-} from '@/interfaces/geolocation-position';
-import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
+} from "@/interfaces/geolocation-position";
+import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
 
 export default Vue.extend({
-  name: 'Home',
+  name: "Home",
   components: {
     VGoogleMap,
   },
@@ -29,7 +29,7 @@ export default Vue.extend({
   }),
   mounted() {
     if (!navigator.geolocation) {
-      alert('現在地情報を取得できませんでした');
+      alert("現在地情報を取得できませんでした");
       return;
     }
 
@@ -54,18 +54,19 @@ export default Vue.extend({
     error(error: GeoError) {
       switch (error.code) {
         case 1: // PERMISSION_DENIED
-          alert('位置情報の利用が許可されていません');
+          alert("位置情報の利用が許可されていません");
           break;
         case 2: // POSITION_UNAVAILABLE
-          alert('現在位置が取得できませんでした');
+          alert("現在位置が取得できませんでした");
           break;
         case 3: // TIMEOUT
-          alert('タイムアウトになりました');
+          alert("タイムアウトになりました");
           break;
         default:
-          alert('現在位置が取得できませんでした');
+          alert("現在位置が取得できませんでした");
           break;
       }
+      this.loading = false;
     },
   },
 });
