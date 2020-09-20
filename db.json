@@ -5,23 +5,23 @@
       "image": "/Users/ryuya/Project/camp-hackthon/src/assets/sample/trypoxylus.jpg",
       "category": "insect",
       "lat": 33.72,
-      "lng": 135.444
+      "lng": 130.454
     },
     {
       "id": 2,
       "title": "クワガタ",
       "image": "/Users/ryuya/Project/camp-hackthon/src/assets/sample/sikakuro.jpg",
       "category": "insect",
-      "lat": 30.72,
-      "lng": 135.444
+      "lat": 33.69,
+      "lng": 130.464
     },
     {
       "id": 3,
       "title": "ヘラクロスオオカブト",
       "image": "/Users/ryuya/Project/camp-hackthon/src/assets/sample/heracress.jpg",
       "category": "insect",
-      "lat": 35.72,
-      "lng": 140.444
+      "lat": 33.71,
+      "lng": 130.424
     }
   ]
 }
