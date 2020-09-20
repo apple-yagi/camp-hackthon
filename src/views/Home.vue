@@ -7,7 +7,7 @@
       <v-card class="google-map-card">
         <v-card-title>Current Position</v-card-title>
         <v-card-text>
-          <v-google-map :marker="currentPosition" :posts="posts" />
+          <v-google-map :current="currentPosition" :posts="posts" />
         </v-card-text>
       </v-card>
     </v-layout>
@@ -75,6 +75,7 @@ export default Vue.extend({
 
   .google-map-card {
     width: 100%;
+    height: 91vh;
   }
 }
 </style>

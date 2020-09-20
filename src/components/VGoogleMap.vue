@@ -2,17 +2,17 @@
   <div>
     <GmapMap
       class="google-map"
-      :center="marker.position"
+      :center="current.position"
       :zoom="15"
       map-type-id="terrain"
     >
       <GmapMarker
         :icon="flag"
-        :position="marker.position"
+        :position="current.position"
         :clickable="true"
         @click="
-          show(
-            `現在地は緯度：${marker.position.lat}，経度：${marker.position.lng}`
+          alert(
+            `現在地は緯度：${current.position.lat}，経度：${current.position.lng}`
           )
         "
       />
@@ -22,20 +22,26 @@
         :position="{ lat: post.lat, lng: post.lng }"
         :clickable="true"
         :icon="flag"
-        @click="show(post.title)"
+        @click="show(post)"
       />
     </GmapMap>
+    <v-post-detail-dialog
+      :dialog="dialog"
+      :post="selectedPost"
+      @close-dialog="dialog = false"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
+import VPostDetailDialog from '@/components/VPostDetailDialog.vue';
 import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
 import { Post } from '@/interfaces/post';
 
 export default Vue.extend({
   props: {
-    marker: {
+    current: {
       type: Object as PropType<GoogleMapsMarker>,
       required: true,
     },
@@ -44,13 +50,22 @@ export default Vue.extend({
       required: true,
     },
   },
+  components: {
+    VPostDetailDialog,
+  },
   data: () => ({
     flag:
       'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+    dialog: false,
+    selectedPost: {} as Post,
   }),
   methods: {
-    show(message: string) {
-      alert(message);
+    alert(msg: string) {
+      alert(msg);
+    },
+    show(post: Post) {
+      this.selectedPost = post;
+      this.dialog = true;
     },
   },
 });
