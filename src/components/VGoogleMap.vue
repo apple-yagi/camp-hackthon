@@ -10,7 +10,19 @@
         :icon="flag"
         :position="marker.position"
         :clickable="true"
-        @click="show"
+        @click="
+          show(
+            `現在地は緯度：${marker.position.lat}，経度：${marker.position.lng}`
+          )
+        "
+      />
+      <GmapMarker
+        v-for="(post, i) in posts"
+        :key="i"
+        :position="{ lat: post.lat, lng: post.lng }"
+        :clickable="true"
+        :icon="flag"
+        @click="show(post.title)"
       />
     </GmapMap>
   </div>
@@ -19,11 +31,16 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
+import { Post } from '@/interfaces/post';
 
 export default Vue.extend({
   props: {
     marker: {
       type: Object as PropType<GoogleMapsMarker>,
+      required: true,
+    },
+    posts: {
+      type: Array as PropType<Post[]>,
       required: true,
     },
   },
@@ -32,8 +49,8 @@ export default Vue.extend({
       'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
   }),
   methods: {
-    show() {
-      alert(this.marker);
+    show(message: string) {
+      alert(message);
     },
   },
 });

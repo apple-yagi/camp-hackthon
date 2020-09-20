@@ -7,7 +7,7 @@
       <v-card class="google-map-card">
         <v-card-title>Current Position</v-card-title>
         <v-card-text>
-          <v-google-map :marker="currentPosition" />
+          <v-google-map :marker="currentPosition" :posts="posts" />
         </v-card-text>
       </v-card>
     </v-layout>
@@ -23,6 +23,8 @@ import {
 } from '@/interfaces/geolocation-position';
 import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
 import _location from '@/utils/location';
+import _posts from '@/utils/posts';
+import { Post } from '@/interfaces/post';
 
 export default Vue.extend({
   name: 'Home',
@@ -32,24 +34,26 @@ export default Vue.extend({
   data: () => ({
     loading: true,
     currentPosition: {} as GoogleMapsMarker,
+    posts: [] as Post[],
   }),
-  mounted() {
-    _location
-      .loadCurrentPosition()
-      .then((position) => {
-        this.currentPosition = {
-          position: {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          },
-        };
-      })
-      .catch((error: GeoError) => {
-        alert('現在位置が取得できませんでした');
-      })
-      .finally(() => {
-        this.loading = false;
-      });
+  async mounted() {
+    try {
+      const result = await Promise.all([
+        _posts.fetchAll(),
+        _location.loadCurrentPosition(),
+      ]);
+
+      this.posts = result[0];
+      this.currentPosition = {
+        position: {
+          lat: result[1].coords.latitude,
+          lng: result[1].coords.longitude,
+        },
+      };
+      this.loading = false;
+    } catch (error) {
+      alert('エラーが発生しました');
+    }
   },
 });
 </script>
