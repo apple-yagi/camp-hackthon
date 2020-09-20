@@ -15,17 +15,17 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import VGoogleMap from "@/components/VGoogleMap.vue";
+import Vue from 'vue';
+import VGoogleMap from '@/components/VGoogleMap.vue';
 import {
   GeolocationPosition,
   GeoError,
-} from "@/interfaces/geolocation-position";
-import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
-import _location from "@/utils/location";
+} from '@/interfaces/geolocation-position';
+import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
+import _location from '@/utils/location';
 
 export default Vue.extend({
-  name: "Home",
+  name: 'Home',
   components: {
     VGoogleMap,
   },
@@ -45,7 +45,7 @@ export default Vue.extend({
         };
       })
       .catch((error: GeoError) => {
-        alert("現在位置が取得できませんでした");
+        alert('現在位置が取得できませんでした');
       })
       .finally(() => {
         this.loading = false;
@@ -56,7 +56,7 @@ export default Vue.extend({
 
 <style scoped>
 .home {
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 .google-map-card {
