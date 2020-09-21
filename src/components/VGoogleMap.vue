@@ -13,7 +13,7 @@
       <GmapMarker
         v-for="(post, i) in posts"
         :key="i"
-        :position="{ lat: post.lat, lng: post.lng }"
+        :position="{ lat: post.latitude, lng: post.longitude }"
         :clickable="true"
         :icon="flag"
         @click="show(post)"
