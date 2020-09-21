@@ -1,23 +1,34 @@
 <template>
   <v-card>
     <v-card-text>
-      <v-row justify="center">
+      <v-row class="pt-5" justify="center">
         <v-col v-show="error" cols="10" sm="8">
           <v-alert type="error">{{ error }}</v-alert>
         </v-col>
         <v-col cols="10" sm="8">
-          <v-text-field v-model="loginInfo.username" label="username"></v-text-field>
+          <v-text-field
+            v-model="loginInfo.username"
+            label="username"
+            outlined
+          ></v-text-field>
         </v-col>
         <v-col cols="10" sm="8">
-          <v-text-field v-model="loginInfo.password" label="password"></v-text-field>
+          <v-text-field
+            v-model="loginInfo.password"
+            label="password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
+            @click:append="showPassword = !showPassword"
+            outlined
+          ></v-text-field>
         </v-col>
       </v-row>
     </v-card-text>
     <v-card-actions>
       <v-layout justify-end>
-        <v-btn @click="login">
+        <v-btn class="mr-3" color="orange darken-2" dark @click="login">
           Login
-          <v-icon>mdi-keyboard-tab</v-icon>
+          <v-icon>mdi-login</v-icon>
         </v-btn>
         <v-btn @click="close">Cancel</v-btn>
       </v-layout>
@@ -26,28 +37,29 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { LoginInfo } from "@/interfaces/login-info";
+import Vue from 'vue';
+import { LoginInfo } from '@/interfaces/login-info';
 
 export default Vue.extend({
   data: () => ({
     isLoading: false,
+    showPassword: false,
     loginInfo: {} as LoginInfo,
-    error: "",
+    error: '',
   }),
   methods: {
     login() {
       if (!this.loginInfo.username || !this.loginInfo.password) {
-        this.error = "ユーザ名/パスワードを入力してください";
+        this.error = 'ユーザ名/パスワードを入力してください';
         return;
       }
 
       this.isLoading = true;
       this.$store
-        .dispatch("auth/login", this.loginInfo)
+        .dispatch('auth/login', this.loginInfo)
         .then((msg) => {
           alert(msg);
-          this.$emit("close-dialog");
+          this.$emit('close-dialog');
         })
         .catch((err) => {
           alert(err);
@@ -57,8 +69,8 @@ export default Vue.extend({
         });
     },
     close() {
-      this.error = "";
-      this.$emit("close-dialog");
+      this.error = '';
+      this.$emit('close-dialog');
     },
   },
 });

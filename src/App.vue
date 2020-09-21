@@ -9,12 +9,20 @@
 
       <v-spacer />
 
-      <v-btn v-if="uid" class="mr-2" @click.stop="postFormDialog = true" outlined>
-        投稿
-        <v-icon>mdi-plus</v-icon>
+      <v-btn
+        v-if="uid"
+        class="mr-2"
+        @click.stop="postFormDialog = true"
+        outlined
+      >
+        <span class="hidden-sm-and-down">投稿</span>
+        <v-icon>mdi-telegram</v-icon>
       </v-btn>
 
-      <v-btn v-else class="mr-2" @click.stop="loginFormDialog = true" outlined>ログイン</v-btn>
+      <v-btn v-else class="mr-2" @click.stop="loginFormDialog = true" outlined>
+        <span class="hidden-sm-and-down">ログイン</span>
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
 
       <v-custom-dialog
         :dialog="postFormDialog"
@@ -40,15 +48,15 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import VCustomDialog from "@/components/utils/VCustomDialog.vue";
-import VPostForm from "@/components/VPostForm.vue";
-import VLoginForm from "@/components/VLoginForm.vue";
-import { mapState } from "vuex";
-import { AuthState } from "./interfaces/store";
+import Vue from 'vue';
+import VCustomDialog from '@/components/utils/VCustomDialog.vue';
+import VPostForm from '@/components/VPostForm.vue';
+import VLoginForm from '@/components/VLoginForm.vue';
+import { mapState } from 'vuex';
+import { AuthState } from './interfaces/store';
 
 export default Vue.extend({
-  name: "App",
+  name: 'App',
   components: {
     VCustomDialog,
     VPostForm,
@@ -57,11 +65,11 @@ export default Vue.extend({
   data: () => ({
     postFormDialog: false,
     loginFormDialog: false,
-    postFormTitle: "Post Form",
-    loginFormTitle: "Login From",
+    postFormTitle: 'Post Form',
+    loginFormTitle: 'Login From',
   }),
   computed: {
-    ...mapState("auth", {
+    ...mapState('auth', {
       uid: (state: any) => state.uid,
     }),
   },
