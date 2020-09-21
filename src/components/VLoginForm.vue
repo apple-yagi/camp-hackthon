@@ -11,10 +11,13 @@
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-btn @click="login">
-        Login
-        <v-icon>mdi-keyboard-tab</v-icon>
-      </v-btn>
+      <v-layout justify-end>
+        <v-btn @click="login">
+          Login
+          <v-icon>mdi-keyboard-tab</v-icon>
+        </v-btn>
+        <v-btn @click="close">Cancel</v-btn>
+      </v-layout>
     </v-card-actions>
   </v-card>
 </template>
@@ -33,10 +36,14 @@ export default Vue.extend({
         .dispatch("auth/login", this.loginInfo)
         .then((msg) => {
           alert(msg);
+          this.$emit("close-dialog");
         })
         .catch((err) => {
           alert(err);
         });
+    },
+    close() {
+      this.$emit("close-dialog");
     },
   },
 });
