@@ -9,12 +9,12 @@
 
       <v-spacer />
 
-      <v-btn class="mr-2" @click.stop="postFormDialog = true" outlined>
+      <v-btn v-if="uid" class="mr-2" @click.stop="postFormDialog = true" outlined>
         投稿
         <v-icon>mdi-plus</v-icon>
       </v-btn>
 
-      <v-btn class="mr-2" @click.stop="loginFormDialog = true" outlined>ログイン</v-btn>
+      <v-btn v-else class="mr-2" @click.stop="loginFormDialog = true" outlined>ログイン</v-btn>
 
       <v-custom-dialog
         :dialog="postFormDialog"
@@ -44,6 +44,8 @@ import Vue from "vue";
 import VCustomDialog from "@/components/utils/VCustomDialog.vue";
 import VPostForm from "@/components/VPostForm.vue";
 import VLoginForm from "@/components/VLoginForm.vue";
+import { mapState } from "vuex";
+import { AuthState } from "./interfaces/store";
 
 export default Vue.extend({
   name: "App",
@@ -58,6 +60,11 @@ export default Vue.extend({
     postFormTitle: "Post Form",
     loginFormTitle: "Login From",
   }),
+  computed: {
+    ...mapState("auth", {
+      uid: (state: any) => state.uid,
+    }),
+  },
 });
 </script>
 
