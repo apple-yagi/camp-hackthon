@@ -78,11 +78,11 @@ export default defineComponent({
         if (newFile) {
           getBase64(newFile).then((image: string | ArrayBuffer | null) => {
             uploadedImage.value = image;
+            context.emit("change-file", uploadedImage.value);
           });
         } else {
           uploadedImage.value = null;
         }
-        context.emit("change-file", uploadedImage.value);
       } else {
         file.value = oldFile;
         context.emit("error-occurred", "ファイル形式が正しくありません");
