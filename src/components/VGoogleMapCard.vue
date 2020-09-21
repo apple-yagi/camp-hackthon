@@ -2,10 +2,6 @@
   <v-card class="google-map-card">
     <v-card-title>
       <h3>Google Map</h3>
-      <v-spacer />
-      <v-btn class="mr-2" @click.stop="formDialog = true" outlined dark color="indigo" icon>
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
     </v-card-title>
     <v-card-text>
       <v-google-map :current="currentPosition" :posts="posts" />

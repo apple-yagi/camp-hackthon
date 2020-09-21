@@ -6,16 +6,11 @@
     <v-layout v-else justify-center>
       <v-google-map-card :currentPosition="currentPosition" :posts="posts" />
     </v-layout>
-    <v-custom-dialog :dialog="formDialog" :title="title" @close-dialog="formDialog = false">
-      <v-post-form @close-dialog="formDialog = false" />
-    </v-custom-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import VCustomDialog from "@/components/utils/VCustomDialog.vue";
-import VPostForm from "@/components/VPostForm.vue";
 import VGoogleMapCard from "@/components/VGoogleMapCard.vue";
 import {
   GeolocationPosition,
@@ -30,13 +25,9 @@ export default Vue.extend({
   name: "Home",
   components: {
     VGoogleMapCard,
-    VCustomDialog,
-    VPostForm,
   },
   data: () => ({
     loading: true,
-    formDialog: false,
-    title: "Post Form",
     currentPosition: {} as GoogleMapsMarker,
     posts: [] as Post[],
   }),
