@@ -3,6 +3,13 @@ export interface Post {
   title: string;
   image: string | File;
   category: string;
-  lat: number;
-  lng: number;
+  latitude: number;
+  longitude: number;
+}
+
+export interface CreatePost {
+  title: string;
+  image: string | ArrayBuffer;
+  latitude: number;
+  longitude: number;
 }
