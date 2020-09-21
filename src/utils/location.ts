@@ -1,7 +1,4 @@
-import {
-  GeoError,
-  GeolocationPosition,
-} from '@/interfaces/geolocation-position';
+import { GeolocationPosition } from '@/interfaces/geolocation-position';
 
 const options = {
   enableHighAccuracy: false,

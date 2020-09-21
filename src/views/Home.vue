@@ -5,18 +5,40 @@
     </div>
     <v-layout v-else justify-center>
       <v-card class="google-map-card">
-        <v-card-title>Current Position</v-card-title>
+        <v-card-title>
+          <h3>Google Map</h3>
+          <v-spacer />
+          <v-btn
+            class="mr-2"
+            @click.stop="formDialog = true"
+            outlined
+            dark
+            color="indigo"
+            icon
+          >
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </v-card-title>
         <v-card-text>
           <v-google-map :current="currentPosition" :posts="posts" />
         </v-card-text>
       </v-card>
     </v-layout>
+    <v-custom-dialog
+      :dialog="formDialog"
+      :title="title"
+      @close-dialog="formDialog = false"
+    >
+      <v-post-form @close-dialog="formDialog = false" />
+    </v-custom-dialog>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import VGoogleMap from '@/components/VGoogleMap.vue';
+import VCustomDialog from '@/components/utils/VCustomDialog.vue';
+import VPostForm from '@/components/VPostForm.vue';
 import {
   GeolocationPosition,
   GeoError,
@@ -30,9 +52,13 @@ export default Vue.extend({
   name: 'Home',
   components: {
     VGoogleMap,
+    VCustomDialog,
+    VPostForm,
   },
   data: () => ({
     loading: true,
+    formDialog: false,
+    title: 'Post Form',
     currentPosition: {} as GoogleMapsMarker,
     posts: [] as Post[],
   }),
