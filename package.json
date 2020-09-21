@@ -9,6 +9,7 @@
     "mock-server": "npx json-server --watch db.json"
   },
   "dependencies": {
+    "@vue/composition-api": "^1.0.0-beta.14",
     "axios": "^0.20.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
