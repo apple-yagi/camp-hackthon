@@ -3,7 +3,10 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
+import VueCompositionApi from '@vue/composition-api';
 import * as VueGoogleMaps from 'vue2-google-maps';
+
+Vue.use(VueCompositionApi);
 
 Vue.use(VueGoogleMaps, {
   load: {
