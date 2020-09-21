@@ -1,13 +1,7 @@
 <template>
   <div>
-    <GmapMap
-      class="google-map"
-      :center="current.position"
-      :zoom="15"
-      map-type-id="terrain"
-    >
+    <GmapMap class="google-map" :center="current.position" :zoom="15" map-type-id="terrain">
       <GmapMarker
-        :icon="flag"
         :position="current.position"
         :clickable="true"
         @click="
@@ -25,19 +19,20 @@
         @click="show(post)"
       />
     </GmapMap>
-    <v-post-detail-dialog
-      :dialog="dialog"
-      :post="selectedPost"
-      @close-dialog="dialog = false"
-    />
+    <v-custom-dialog :dialog="dialog" :title="title" @close-dialog="dialog = false">
+      <slot>
+        <v-post-card :post="selectedPost" />
+      </slot>
+    </v-custom-dialog>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue';
-import VPostDetailDialog from '@/components/VPostDetailDialog.vue';
-import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
-import { Post } from '@/interfaces/post';
+import Vue, { PropType } from "vue";
+import VCustomDialog from "@/components/utils/VCustomDialog.vue";
+import VPostCard from "@/components/VPostCard.vue";
+import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
+import { Post } from "@/interfaces/post";
 
 export default Vue.extend({
   props: {
@@ -51,12 +46,13 @@ export default Vue.extend({
     },
   },
   components: {
-    VPostDetailDialog,
+    VPostCard,
+    VCustomDialog,
   },
   data: () => ({
-    flag:
-      'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+    flag: process.env.VUE_APP_FLAG_ICON,
     dialog: false,
+    title: "Post Card",
     selectedPost: {} as Post,
   }),
   methods: {
