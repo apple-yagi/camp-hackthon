@@ -5,7 +5,7 @@ import {
 
 const options = {
   enableHighAccuracy: false,
-  timeout: 5000,
+  timeout: 7000,
   maximumAge: 0,
 };
 
