@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 import { RootState } from '@/interfaces/store';
 import { auth } from './auth';
 
@@ -12,6 +13,13 @@ const store: StoreOptions<RootState> = {
   modules: {
     auth,
   },
+  plugins: [
+    createPersistedState({
+      key: 'Authenticate',
+      paths: ['auth'],
+      storage: window.sessionStorage,
+    }),
+  ],
 };
 
 export default new Vuex.Store<RootState>(store);
