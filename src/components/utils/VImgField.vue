@@ -26,16 +26,16 @@ import {
   SetupContext,
   ref,
   watch,
-} from '@vue/composition-api';
+} from "@vue/composition-api";
 
 // アップロードを許可する拡張子
-const allowExts: string[] = ['jpg', 'jpeg', 'png', 'bmp'];
+const allowExts: string[] = ["jpg", "jpeg", "png", "bmp"];
 
 // ファイル名から拡張子を取得する関数
 const getExt = (filename: string): string => {
-  const pos = filename.lastIndexOf('.');
+  const pos = filename.lastIndexOf(".");
   if (pos === -1) {
-    return '';
+    return "";
   }
   return filename.slice(pos + 1);
 };
@@ -82,10 +82,10 @@ export default defineComponent({
         } else {
           uploadedImage.value = null;
         }
-        context.emit('change-file', file.value);
+        context.emit("change-file", uploadedImage.value);
       } else {
         file.value = oldFile;
-        context.emit('error-occurred', 'ファイル形式が正しくありません');
+        context.emit("error-occurred", "ファイル形式が正しくありません");
       }
     });
 
@@ -109,7 +109,7 @@ label {
 }
 
 label::after {
-  content: '+';
+  content: "+";
   font-size: 1rem;
   color: #888;
   padding-left: 1rem;
