@@ -1,4 +1,4 @@
-import { Post } from '@/interfaces/post';
+import { Post, CreatePost } from '@/interfaces/post';
 import axios, { AxiosResponse } from 'axios';
 const BackendUrl =
   process.env.VUE_APP_BACKEND_URL || 'http://localhost:3000/posts';
@@ -13,7 +13,7 @@ export default {
     }
   },
 
-  async create(post: Post): Promise<string> {
+  async create(post: CreatePost): Promise<string> {
     try {
       const res = await axios.post(BackendUrl, post);
       return Promise.resolve('success');
