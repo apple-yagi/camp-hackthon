@@ -23,3 +23,6 @@ pnpm-debug.log*
 
 # sample image
 src/assets/sample
+
+# db.json
+db.json
