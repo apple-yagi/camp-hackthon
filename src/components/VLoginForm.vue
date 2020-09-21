@@ -1,11 +1,14 @@
 <template>
   <v-card>
     <v-card-text>
-      <v-row>
-        <v-col cols="10" sm="8" md="6">
-          <v-text-field v-model="loginInfo.email" label="email"></v-text-field>
+      <v-row justify="center">
+        <v-col v-show="error" cols="10" sm="8">
+          <v-alert type="error">{{ error }}</v-alert>
         </v-col>
-        <v-col cols="10" sm="8" md="6">
+        <v-col cols="10" sm="8">
+          <v-text-field v-model="loginInfo.username" label="username"></v-text-field>
+        </v-col>
+        <v-col cols="10" sm="8">
           <v-text-field v-model="loginInfo.password" label="password"></v-text-field>
         </v-col>
       </v-row>
@@ -28,10 +31,18 @@ import { LoginInfo } from "@/interfaces/login-info";
 
 export default Vue.extend({
   data: () => ({
+    isLoading: false,
     loginInfo: {} as LoginInfo,
+    error: "",
   }),
   methods: {
     login() {
+      if (!this.loginInfo.username || !this.loginInfo.password) {
+        this.error = "ユーザ名/パスワードを入力してください";
+        return;
+      }
+
+      this.isLoading = true;
       this.$store
         .dispatch("auth/login", this.loginInfo)
         .then((msg) => {
@@ -40,9 +51,13 @@ export default Vue.extend({
         })
         .catch((err) => {
           alert(err);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     close() {
+      this.error = "";
       this.$emit("close-dialog");
     },
   },
