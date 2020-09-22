@@ -36,7 +36,7 @@
 import Vue from "vue";
 import VImgField from "@/components/utils/VImgField.vue";
 import { CreatePost } from "@/interfaces/post";
-import _posts from "@/utils/posts";
+import _insects from "@/utils/insects";
 import _location from "@/utils/location";
 
 export default Vue.extend({
@@ -68,7 +68,7 @@ export default Vue.extend({
         this.data.longitude = currentPosition.coords.longitude;
 
         // APIにPost
-        const msg = await _posts.create(this.data);
+        const msg = await _insects.create(this.data);
         alert(msg);
         this.$emit("close-dialog");
       } catch (err) {

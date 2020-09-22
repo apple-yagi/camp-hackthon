@@ -18,7 +18,7 @@ import {
 } from "@/interfaces/geolocation-position";
 import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
 import _location from "@/utils/location";
-import _posts from "@/utils/posts";
+import _insects from "@/utils/insects";
 import { Post } from "@/interfaces/post";
 
 export default Vue.extend({
@@ -34,7 +34,7 @@ export default Vue.extend({
   async mounted() {
     try {
       const result = await Promise.all([
-        _posts.fetchAll(),
+        _insects.fetchAll(),
         _location.loadCurrentPosition(),
       ]);
 
