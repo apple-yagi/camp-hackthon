@@ -55,22 +55,7 @@ export default Vue.extend({
 
 <style scoped>
 .home {
-  margin-top: 30px;
-}
-
-.google-map-card {
-  width: 90%;
-}
-
-@media screen and (max-width: 600px) {
-  .home {
-    margin: 0;
-    padding: 0;
-  }
-
-  .google-map-card {
-    width: 100%;
-    height: 91vh;
-  }
+  margin: 0;
+  padding: 0;
 }
 </style>
