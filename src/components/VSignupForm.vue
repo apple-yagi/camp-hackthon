@@ -52,6 +52,7 @@ import { SignupInfo } from "@/interfaces/signup-info";
 export default Vue.extend({
   data: () => ({
     signupInfo: {} as SignupInfo,
+    error: "",
     usernameRules,
     passwordRules,
     showPassword: false,
