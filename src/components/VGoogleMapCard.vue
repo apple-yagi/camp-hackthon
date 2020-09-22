@@ -31,3 +31,10 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.google-map-card {
+  width: 100%;
+  height: 100vh;
+}
+</style>

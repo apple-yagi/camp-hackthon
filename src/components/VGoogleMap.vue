@@ -70,12 +70,6 @@ export default Vue.extend({
 <style scoped>
 .google-map {
   width: 100%;
-  height: 550px;
-}
-
-@media screen and (max-width: 400px) {
-  .google-map {
-    height: 500px;
-  }
+  height: 90vh;
 }
 </style>
