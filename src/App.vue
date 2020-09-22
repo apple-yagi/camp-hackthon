@@ -9,12 +9,12 @@
 
       <v-spacer />
 
-      <v-btn v-if="uid" class="mr-2" @click.stop="postFormDialog = true" outlined>
+      <v-btn class="mr-2" @click.stop="postFormDialog = true" outlined>
         <span class="hidden-sm-and-down">投稿</span>
         <v-icon>mdi-telegram</v-icon>
       </v-btn>
 
-      <div class="d-flex" v-else>
+      <!-- <div class="d-flex" v-else>
         <v-btn class="mr-2" @click.stop="loginFormDialog = true" outlined>
           <span class="hidden-sm-and-down">ログイン</span>
           <v-icon>mdi-login</v-icon>
@@ -23,7 +23,7 @@
           <span class="hidden-sm-and-down">サインアップ</span>
           <v-icon>mdi-account-check</v-icon>
         </v-btn>
-      </div>
+      </div>-->
 
       <v-custom-dialog
         :dialog="postFormDialog"
