@@ -14,7 +14,7 @@
         <v-icon>mdi-telegram</v-icon>
       </v-btn>
 
-      <div v-else>
+      <div class="d-flex" v-else>
         <v-btn class="mr-2" @click.stop="loginFormDialog = true" outlined>
           <span class="hidden-sm-and-down">ログイン</span>
           <v-icon>mdi-login</v-icon>
