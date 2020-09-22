@@ -69,7 +69,6 @@ export default Vue.extend({
 
         // APIにPost
         const msg = await _insects.create(this.data);
-        alert(msg);
         this.$emit("close-dialog");
       } catch (err) {
         this.error = err;
