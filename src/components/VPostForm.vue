@@ -49,6 +49,7 @@ export default Vue.extend({
   data: () => ({
     valid: true,
     data: {} as CreateInsect,
+    file: {} as File,
     error: "",
     titleRules: [
       (v: string) => !!v || "Name is required",
@@ -59,7 +60,7 @@ export default Vue.extend({
   }),
   methods: {
     async submit() {
-      if (!this.data.image || !this.data.name) {
+      if (!this.file || !this.data.name) {
         this.error = "項目に不足があります";
         return;
       }
@@ -78,7 +79,7 @@ export default Vue.extend({
       }
       this.isLoading = false;
     },
-    changeFile(uploadedImage: File) {
+    changeFile(uploadedImage: Blob) {
       this.data.image = uploadedImage;
     },
     catchError(err: string) {
