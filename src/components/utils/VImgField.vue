@@ -89,11 +89,7 @@ export default defineComponent({
         if (newFile) {
           getBase64(newFile).then((image: string | ArrayBuffer | null) => {
             uploadedImage.value = image;
-
-            if (typeof uploadedImage.value === "string") {
-              const blob = base64ToBlob(uploadedImage.value);
-              context.emit("change-file", blob);
-            }
+            context.emit("change-file", uploadedImage.value);
           });
         } else {
           uploadedImage.value = null;
