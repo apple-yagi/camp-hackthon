@@ -13,7 +13,7 @@
             <v-text-field outlined label="Name" :rules="titleRules" v-model="data.name" />
           </v-col>
           <v-col cols="11" sm="8">
-            <v-textarea v-model="data.description" rows="10" label="Description" />
+            <v-textarea v-model="data.description" rows="6" label="Description" outlined />
           </v-col>
         </v-row>
       </v-card-text>
