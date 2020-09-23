@@ -11,11 +11,15 @@
     <span v-for="(comment, i) in comments" :key="i">
       {{ comment.id }}:{{ comment.body }}
     </span>
+    <v-row justify="center">
+      <v-col cols="11">
+        <v-textarea v-model="comment.body" label="Comments" outlined rows="2" />
+      </v-col>
+    </v-row>
     <v-card-actions>
-      <v-textarea v-model="body" label="Comments" rows="5" />
       <v-layout justify-end>
-        <v-btn @click="addComment">
-          ADD
+        <v-btn>
+          add
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-layout>
@@ -37,14 +41,27 @@ export default Vue.extend({
     },
   },
   data: () => ({
+    comment: {} as Comment,
     comments: [] as Comment[],
   }),
   async mounted() {
-    try {
-      this.comments = await _comments.fetchAll(this.post.id);
-    } catch (error) {
-      alert(error);
-    }
+    this.loadComments();
+  },
+  methods: {
+    async loadComments() {
+      try {
+        this.comments = await _comments.fetchAll(this.post.id);
+      } catch (error) {
+        alert(error);
+      }
+    },
+    async addComment() {
+      try {
+        await _comments.create(this.post.id, this.comment);
+      } catch (error) {
+        alert(error);
+      }
+    },
   },
 });
 </script>
