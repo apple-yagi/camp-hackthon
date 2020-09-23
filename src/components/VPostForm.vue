@@ -92,6 +92,7 @@ export default Vue.extend({
     valid: true,
     flag: process.env.VUE_APP_FLAG_ICON,
     data: {} as CreateInsect,
+    file: {} as File,
     currentPosition: {},
     error: '',
     titleRules: [
@@ -111,12 +112,14 @@ export default Vue.extend({
   },
   methods: {
     async submit() {
-      if (!this.data.image || !this.data.name) {
+      if (!this.file || !this.data.name) {
         this.error = '項目に不足があります';
         return;
       }
       this.isLoading = true;
       try {
+        // firebase storage に画像を保存
+        this.data.image = await _insects.uploadImage(this.file);
         // APIにPost
         this.data.user_id = this.uid;
         const msg = await _insects.create(this.data);
@@ -127,8 +130,8 @@ export default Vue.extend({
       }
       this.isLoading = false;
     },
-    changeFile(uploadedImage: string | ArrayBuffer) {
-      this.data.image = uploadedImage;
+    changeFile(uploadedImage: File) {
+      this.file = uploadedImage;
     },
     catchError(err: string) {
       this.error = err;

@@ -1,6 +1,8 @@
 import { Insect, CreateInsect } from '@/interfaces/insects';
 import axios, { AxiosResponse } from 'axios';
+import firebase from '@/plugins/firebase';
 const BaseUrl = process.env.VUE_APP_BASE_URL || 'http://localhost:3000/';
+const storageRef = firebase.storage().ref();
 
 export default {
   async fetchAll(): Promise<Insect[]> {
@@ -30,5 +32,26 @@ export default {
     } catch (error) {
       return Promise.reject('削除に失敗しました');
     }
+  },
+
+  async uploadImage(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const mountainsRef = storageRef.child(`insects/${file.name}`);
+      mountainsRef
+        .put(file)
+        .then((snapshot) => {
+          snapshot.ref
+            .getDownloadURL()
+            .then((downloadURL: string) => {
+              resolve(downloadURL);
+            })
+            .catch((error) => {
+              reject(error.message);
+            });
+        })
+        .catch((error) => {
+          reject(error.message);
+        });
+    });
   },
 };
