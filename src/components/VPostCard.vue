@@ -12,9 +12,10 @@
         <h3>{{ post.description }}</h3>
       </v-card-text>
       <v-card-text>
+        <h3>コメント</h3>
         <h4 class="my-3" v-for="(comment, index) in comments" :key="index">
           <hr />
-          コメント{{ comment.id }}<br />
+          #{{ comment.id }}<br />
           &nbsp;{{ comment.body }}
         </h4>
       </v-card-text>
