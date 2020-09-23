@@ -2,6 +2,7 @@
   <v-card>
     <v-img v-if="post.image" :src="post.image" max-width="100%" alt="post image" />
     <v-card-title>{{ post.name }}</v-card-title>
+    <v-card-text>{{ post.description }}</v-card-text>
   </v-card>
 </template>
 

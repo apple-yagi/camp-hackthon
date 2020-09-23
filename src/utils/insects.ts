@@ -14,7 +14,16 @@ export default {
 
   async create(post: CreateInsect): Promise<string> {
     try {
-      const res = await axios.post(`${BaseUrl}insects`, post);
+      const formData = new FormData();
+      formData.append('name', post.name);
+      formData.append('image', post.image);
+      formData.append('description', post.description);
+      let config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
+      const res = await axios.post(`${BaseUrl}insects`, formData, config);
       return Promise.resolve('success');
     } catch (error) {
       return Promise.reject('投稿に失敗しました');
