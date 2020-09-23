@@ -40,6 +40,17 @@ const getExt = (filename: string): string => {
   return filename.slice(pos + 1);
 };
 
+const base64ToBlob = (base64: string): Blob => {
+  const bin = atob(base64.replace(/^.*,/, ""));
+  const buffer = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) {
+    buffer[i] = bin.charCodeAt(i);
+  }
+  return new Blob([buffer.buffer], {
+    type: "image/png",
+  });
+};
+
 // ファイルが許可されている拡張子か確認する関数
 const checkExt = (file: File | undefined): boolean => {
   if (file) {
@@ -78,7 +89,11 @@ export default defineComponent({
         if (newFile) {
           getBase64(newFile).then((image: string | ArrayBuffer | null) => {
             uploadedImage.value = image;
-            context.emit("change-file", uploadedImage.value);
+
+            if (typeof uploadedImage.value === "string") {
+              const blob = base64ToBlob(uploadedImage.value);
+              context.emit("change-file", uploadedImage.value);
+            }
           });
         } else {
           uploadedImage.value = null;
