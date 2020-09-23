@@ -7,15 +7,17 @@
         </v-col>
         <v-col cols="10" sm="8">
           <v-text-field
-            v-model="loginInfo.username"
+            v-model="signinInfo.username"
+            :rules="usernameRules"
             label="username"
             outlined
           ></v-text-field>
         </v-col>
         <v-col cols="10" sm="8">
           <v-text-field
-            v-model="loginInfo.password"
+            v-model="signinInfo.password"
             label="password"
+            :rules="passwordRules"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'"
             @click:append="showPassword = !showPassword"
@@ -26,7 +28,13 @@
     </v-card-text>
     <v-card-actions>
       <v-layout justify-end>
-        <v-btn class="mr-3" color="orange darken-2" dark @click="login">
+        <v-btn
+          class="mr-3"
+          color="orange darken-2"
+          dark
+          @click="login"
+          :loading="isLoading"
+        >
           Login
           <v-icon>mdi-login</v-icon>
         </v-btn>
@@ -38,31 +46,33 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { LoginInfo } from '@/interfaces/login-info';
+import { SigninInfo } from '@/interfaces/signin-info';
+import { usernameRules, passwordRules } from '@/rules';
 
 export default Vue.extend({
   data: () => ({
     isLoading: false,
     showPassword: false,
-    loginInfo: {} as LoginInfo,
+    signinInfo: {} as SigninInfo,
+    usernameRules,
+    passwordRules,
     error: '',
   }),
   methods: {
     login() {
-      if (!this.loginInfo.username || !this.loginInfo.password) {
+      if (!this.signinInfo.username || !this.signinInfo.password) {
         this.error = 'ユーザ名/パスワードを入力してください';
         return;
       }
 
       this.isLoading = true;
       this.$store
-        .dispatch('auth/login', this.loginInfo)
+        .dispatch('auth/signIn', this.signinInfo)
         .then((msg) => {
-          alert(msg);
           this.$emit('close-dialog');
         })
         .catch((err) => {
-          alert(err);
+          this.error = err;
         })
         .finally(() => {
           this.isLoading = false;

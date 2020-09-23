@@ -9,12 +9,17 @@
 
       <v-spacer />
 
-      <v-btn class="mr-2" @click.stop="postFormDialog = true" outlined>
+      <v-btn
+        v-if="id"
+        class="mr-2"
+        @click.stop="postFormDialog = true"
+        outlined
+      >
         <span class="hidden-sm-and-down">投稿</span>
         <v-icon>mdi-telegram</v-icon>
       </v-btn>
 
-      <div class="d-flex">
+      <div v-else class="d-flex">
         <v-btn class="mr-2" @click.stop="loginFormDialog = true" outlined>
           <span class="hidden-sm-and-down">ログイン</span>
           <v-icon>mdi-login</v-icon>
@@ -83,7 +88,7 @@ export default Vue.extend({
   }),
   computed: {
     ...mapState('auth', {
-      uid: (state: any) => state.uid,
+      id: (state: any) => state.id,
     }),
   },
 });

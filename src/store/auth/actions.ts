@@ -1,20 +1,27 @@
 import { ActionTree } from 'vuex';
 import { AuthState, RootState } from '@/interfaces/store';
-import { LoginInfo } from '@/interfaces/login-info';
+import { SigninInfo } from '@/interfaces/signin-info';
+import { SignupInfo } from '@/interfaces/signup-info';
 import _auth from '@/utils/auth';
 
 const actions: ActionTree<AuthState, RootState> = {
-  login: async ({ commit }, loginInfo: LoginInfo) => {
+  signIn: async ({ commit }, signinInfo: SigninInfo) => {
     try {
-      const auth = _auth.login(loginInfo);
+      const auth = await _auth.signIn(signinInfo);
       commit('set', auth);
       return Promise.resolve('success');
     } catch (error) {
-      return Promise.reject('error');
+      return Promise.reject(error);
     }
   },
-  logout: async ({ commit }) => {
-    commit('reset');
+  signUp: async ({ commit }, signupInfo: SignupInfo) => {
+    try {
+      const auth = await _auth.signUp(signupInfo);
+      commit('set', auth);
+      return Promise.resolve('success');
+    } catch (error) {
+      return Promise.reject(error);
+    }
   },
 };
 

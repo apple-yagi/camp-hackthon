@@ -1,6 +1,11 @@
 <template>
   <div>
-    <GmapMap class="google-map" :center="current.position" :zoom="15" map-type-id="terrain">
+    <GmapMap
+      class="google-map"
+      :center="current.position"
+      :zoom="15"
+      map-type-id="terrain"
+    >
       <GmapMarker
         :position="current.position"
         :clickable="true"
@@ -20,20 +25,24 @@
         @click="show(post)"
       />
     </GmapMap>
-    <v-custom-dialog :dialog="dialog" :title="title" @close-dialog="dialog = false">
+    <v-custom-dialog
+      :dialog="dialog"
+      :title="title"
+      @close-dialog="dialog = false"
+    >
       <slot>
-        <v-post-card :post="selectedPost" />
+        <v-post-card :post="selectedPost" @close-dialog="dialog = false" />
       </slot>
     </v-custom-dialog>
   </div>
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from "vue";
-import VCustomDialog from "@/components/utils/VCustomDialog.vue";
-import VPostCard from "@/components/VPostCard.vue";
-import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
-import { Insect } from "@/interfaces/insects";
+import Vue, { PropType } from 'vue';
+import VCustomDialog from '@/components/utils/VCustomDialog.vue';
+import VPostCard from '@/components/VPostCard.vue';
+import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
+import { Insect } from '@/interfaces/insects';
 
 export default Vue.extend({
   props: {
@@ -53,7 +62,7 @@ export default Vue.extend({
   data: () => ({
     flag: process.env.VUE_APP_FLAG_ICON,
     dialog: false,
-    title: "Post Card",
+    title: 'Post Card',
     selectedPost: {} as Insect,
   }),
   methods: {

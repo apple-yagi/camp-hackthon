@@ -7,7 +7,13 @@
         max-width="100%"
         alt="post image"
       />
-      <v-card-title>{{ post.name }}</v-card-title>
+      <v-card-title class="headline font-weight-bold">{{
+        post.name
+      }}</v-card-title>
+      <v-card-subtitle>
+        時間帯 {{ post.hour }}<br />
+        投稿時間 {{ post.created_at }}
+      </v-card-subtitle>
       <v-card-text>
         <h3>{{ post.description }}</h3>
       </v-card-text>
@@ -35,6 +41,15 @@
             add
             <v-icon>mdi-plus</v-icon>
           </v-btn>
+          <v-btn
+            v-if="uid === post.user_id"
+            class="ml-3"
+            @click="deleteInsect"
+            :loading="isLoading"
+          >
+            delete
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
         </v-layout>
       </v-card-actions>
     </v-container>
@@ -44,8 +59,10 @@
 <script lang="ts">
 import { Insect } from '@/interfaces/insects';
 import _comments from '@/utils/comments';
+import _insects from '@/utils/insects';
 import { Comment } from '@/interfaces/comments';
 import Vue, { PropType } from 'vue';
+import { mapState } from 'vuex';
 
 export default Vue.extend({
   props: {
@@ -58,6 +75,7 @@ export default Vue.extend({
     comment: {} as Comment,
     comments: [] as Comment[],
     isLoading: false,
+    error: '',
   }),
   mounted() {
     this.loadComments();
@@ -66,8 +84,8 @@ export default Vue.extend({
     async loadComments() {
       try {
         this.comments = await _comments.fetchAll(this.post.id);
-      } catch (error) {
-        alert(error);
+      } catch (err) {
+        this.error = err;
       }
     },
     async addComment() {
@@ -75,16 +93,32 @@ export default Vue.extend({
       try {
         await _comments.create(this.post.id, this.comment);
         await this.loadComments();
-      } catch (error) {
-        alert(error);
+      } catch (err) {
+        this.error = err;
       }
       this.isLoading = false;
+    },
+    async deleteInsect() {
+      this.isLoading = true;
+      try {
+        await _insects.remove(this.post.id);
+        await this.$store.dispatch('insects/load');
+      } catch (err) {
+        this.error = err;
+      }
+      this.isLoading = false;
+      this.$emit('close-dialog');
     },
   },
   watch: {
     post() {
       this.loadComments();
     },
+  },
+  computed: {
+    ...mapState('auth', {
+      uid: (state: any) => state.id,
+    }),
   },
 });
 </script>

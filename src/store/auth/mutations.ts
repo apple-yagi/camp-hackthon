@@ -3,14 +3,16 @@ import { AuthState } from '@/interfaces/store';
 
 const mutations: MutationTree<AuthState> = {
   set: (state, payload: AuthState) => {
-    state.accessToken = payload.accessToken;
-    state.client = payload.client;
-    state.uid = payload.uid;
+    state.id = payload.id;
+    state.username = payload.username;
+    state.nickname = payload.nickname;
+    state.password = payload.password;
   },
   reset: (state) => {
-    state.accessToken = '';
-    state.client = '';
-    state.uid = '';
+    state.id = null;
+    state.username = '';
+    state.nickname = '';
+    state.password = '';
   },
 };
 

@@ -6,22 +6,25 @@
           <v-alert type="error">{{ error }}</v-alert>
         </v-col>
         <v-col cols="10" sm="8">
-          <v-text-field v-model="signupInfo.username" label="username" outlined></v-text-field>
-        </v-col>
-        <v-col cols="10" sm="8">
           <v-text-field
-            v-model="signupInfo.password"
-            label="password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            @click:append="showPassword = !showPassword"
+            v-model="signupInfo.username"
+            label="username"
+            :rules="usernameRules"
             outlined
           ></v-text-field>
         </v-col>
         <v-col cols="10" sm="8">
           <v-text-field
-            v-model="signupInfo.confirm_password"
+            v-model="signupInfo.nickname"
+            label="nickname"
+            outlined
+          ></v-text-field>
+        </v-col>
+        <v-col cols="10" sm="8">
+          <v-text-field
+            v-model="signupInfo.password"
             label="password"
+            :rules="passwordRules"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'"
             @click:append="showPassword = !showPassword"
@@ -32,7 +35,12 @@
     </v-card-text>
     <v-card-actions>
       <v-layout justify-end>
-        <v-btn class="mr-3">
+        <v-btn
+          class="mr-3"
+          @click="signUp"
+          :loading="isLoading"
+          :disabled="isLoading"
+        >
           <span>Signup</span>
           <v-icon>mdi-account-check</v-icon>
         </v-btn>
@@ -45,21 +53,42 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { usernameRules, passwordRules } from "@/rules";
-import { SignupInfo } from "@/interfaces/signup-info";
+import Vue from 'vue';
+import _auth from '@/utils/auth';
+import { usernameRules, passwordRules } from '@/rules';
+import { SignupInfo } from '@/interfaces/signup-info';
 
 export default Vue.extend({
   data: () => ({
     signupInfo: {} as SignupInfo,
-    error: "",
+    error: '',
     usernameRules,
     passwordRules,
     showPassword: false,
+    isLoading: false,
   }),
   methods: {
+    async signUp() {
+      if (
+        !this.signupInfo.nickname ||
+        !this.signupInfo.username ||
+        !this.signupInfo.password
+      ) {
+        this.error = '空白の項目があります';
+        return;
+      }
+
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch('auth/signUp', this.signupInfo);
+        this.close();
+      } catch (err) {
+        this.error = err;
+      }
+      this.isLoading = false;
+    },
     close() {
-      this.$emit("close-dialog");
+      this.$emit('close-dialog');
     },
   },
 });

@@ -82,6 +82,7 @@ import VImgField from '@/components/utils/VImgField.vue';
 import { CreateInsect } from '@/interfaces/insects';
 import _insects from '@/utils/insects';
 import _location from '@/utils/location';
+import { mapState } from 'vuex';
 
 export default Vue.extend({
   components: {
@@ -117,6 +118,7 @@ export default Vue.extend({
       this.isLoading = true;
       try {
         // APIにPost
+        this.data.user_id = this.uid;
         const msg = await _insects.create(this.data);
         await this.$store.dispatch('insects/load');
         this.$emit('close-dialog');
@@ -135,6 +137,11 @@ export default Vue.extend({
       this.data.latitude = location.latLng.lat();
       this.data.longitude = location.latLng.lng();
     },
+  },
+  computed: {
+    ...mapState('auth', {
+      uid: (state: any) => state.id,
+    }),
   },
 });
 </script>

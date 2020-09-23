@@ -20,4 +20,15 @@ export default {
       return Promise.reject('投稿に失敗しました');
     }
   },
+
+  async remove(insectId: number): Promise<Insect> {
+    try {
+      const res: AxiosResponse<Insect> = await axios.delete(
+        `${BaseUrl}insects/${insectId}`
+      );
+      return Promise.resolve(res.data);
+    } catch (error) {
+      return Promise.reject('削除に失敗しました');
+    }
+  },
 };

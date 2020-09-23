@@ -5,9 +5,10 @@ import actions from './actions';
 import mutations from './mutations';
 
 const state: AuthState = {
-  accessToken: '',
-  client: '',
-  uid: '',
+  id: null,
+  nickname: '',
+  username: '',
+  password: '',
 };
 
 export const auth: Module<AuthState, RootState> = {

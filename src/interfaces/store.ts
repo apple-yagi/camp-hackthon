@@ -5,9 +5,10 @@ export interface RootState {
 }
 
 export interface AuthState {
-  accessToken: string;
-  client: string;
-  uid: string;
+  id: number | null;
+  nickname: string;
+  username: string;
+  password: string;
 }
 
 export interface InsectsState {

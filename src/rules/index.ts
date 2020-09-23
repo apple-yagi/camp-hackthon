@@ -1,7 +1,7 @@
 export const usernameRules = [
   (v: string) => !!v || 'ユーザー名は必須項目です',
   (v: string) =>
-    (v && v.length >= 4) || 'ユーザー名は4文字以上入力してください',
+    (v && v.length >= 6) || 'ユーザー名は6文字以上入力してください',
 ];
 
 export const passwordRules = [
