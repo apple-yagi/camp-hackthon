@@ -10,7 +10,10 @@
             <v-img-field @change-file="changeFile" @error-occurred="catchError" />
           </v-col>
           <v-col cols="11" sm="8">
-            <v-text-field outlined label="タイトル" :rules="titleRules" v-model="data.name" />
+            <v-text-field outlined label="Name" :rules="titleRules" v-model="data.name" />
+          </v-col>
+          <v-col cols="11" sm="8">
+            <v-textarea v-model="data.description" rows="10" label="Description" />
           </v-col>
         </v-row>
       </v-card-text>
