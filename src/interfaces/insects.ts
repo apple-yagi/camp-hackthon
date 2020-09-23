@@ -1,13 +1,13 @@
-export interface Post {
+export interface Insect {
   id: number;
-  title: string;
+  name: string;
   image: string | File;
   category: string;
   latitude: number;
   longitude: number;
 }
 
-export interface CreatePost {
+export interface CreateInsect {
   title: string;
   image: string | ArrayBuffer;
   latitude: number;

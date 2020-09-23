@@ -10,7 +10,7 @@
             <v-img-field @change-file="changeFile" @error-occurred="catchError" />
           </v-col>
           <v-col cols="11" sm="8">
-            <v-text-field outlined label="タイトル" :rules="titleRules" v-model="data.title" />
+            <v-text-field outlined label="タイトル" :rules="titleRules" v-model="data.name" />
           </v-col>
         </v-row>
       </v-card-text>
@@ -35,7 +35,7 @@
 <script lang="ts">
 import Vue from "vue";
 import VImgField from "@/components/utils/VImgField.vue";
-import { CreatePost } from "@/interfaces/post";
+import { CreateInsect } from "@/interfaces/insects";
 import _insects from "@/utils/insects";
 import _location from "@/utils/location";
 
@@ -45,7 +45,7 @@ export default Vue.extend({
   },
   data: () => ({
     valid: true,
-    data: {} as CreatePost,
+    data: {} as CreateInsect,
     error: "",
     titleRules: [
       (v: string) => !!v || "Name is required",

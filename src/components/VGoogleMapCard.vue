@@ -12,7 +12,7 @@
 <script lang="ts">
 import VGoogleMap from "@/components/VGoogleMap.vue";
 import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
-import { Post } from "@/interfaces/post";
+import { Insect } from "@/interfaces/insects";
 import Vue, { PropType } from "vue";
 
 export default Vue.extend({
@@ -22,7 +22,7 @@ export default Vue.extend({
       required: true,
     },
     posts: {
-      type: Array as PropType<Post[]>,
+      type: Array as PropType<Insect[]>,
       required: true,
     },
   },

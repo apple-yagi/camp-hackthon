@@ -19,7 +19,7 @@ import {
 import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
 import _location from "@/utils/location";
 import _insects from "@/utils/insects";
-import { Post } from "@/interfaces/post";
+import { Insect } from "@/interfaces/insects";
 
 export default Vue.extend({
   name: "Home",
@@ -29,7 +29,7 @@ export default Vue.extend({
   data: () => ({
     loading: true,
     currentPosition: {} as GoogleMapsMarker,
-    posts: [] as Post[],
+    posts: [] as Insect[],
   }),
   async mounted() {
     try {
