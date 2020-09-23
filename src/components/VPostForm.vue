@@ -36,26 +36,28 @@
           </v-col>
         </v-row>
       </v-card-text>
-      <GmapMap
-        v-if="!mapLoading"
-        :center="{
-          lat: data.latitude,
-          lng: data.longitude,
-        }"
-        :zoom="15"
-        map-type-id="terrain"
-        style="width: 300px; height: 300px;"
-      >
-        <GmapMarker
-          :position="{
+      <v-row justify="center">
+        <GmapMap
+          v-if="!mapLoading"
+          :center="{
             lat: data.latitude,
             lng: data.longitude,
           }"
-          :draggable="true"
-          @drag="updatePosition"
-          :icon="flag"
-        />
-      </GmapMap>
+          :zoom="15"
+          map-type-id="terrain"
+          style="width: 500px; height: 300px;"
+        >
+          <GmapMarker
+            :position="{
+              lat: data.latitude,
+              lng: data.longitude,
+            }"
+            :draggable="true"
+            @drag="updatePosition"
+            :icon="flag"
+          />
+        </GmapMap>
+      </v-row>
       <v-card-actions>
         <v-layout justify-end>
           <v-btn
