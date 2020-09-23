@@ -32,7 +32,7 @@ import Vue, { PropType } from "vue";
 import VCustomDialog from "@/components/utils/VCustomDialog.vue";
 import VPostCard from "@/components/VPostCard.vue";
 import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
-import { Post } from "@/interfaces/post";
+import { Insect } from "@/interfaces/insects";
 
 export default Vue.extend({
   props: {
@@ -41,7 +41,7 @@ export default Vue.extend({
       required: true,
     },
     posts: {
-      type: Array as PropType<Post[]>,
+      type: Array as PropType<Insect[]>,
       required: true,
     },
   },
@@ -53,13 +53,13 @@ export default Vue.extend({
     flag: process.env.VUE_APP_FLAG_ICON,
     dialog: false,
     title: "Post Card",
-    selectedPost: {} as Post,
+    selectedPost: {} as Insect,
   }),
   methods: {
     alert(msg: string) {
       alert(msg);
     },
-    show(post: Post) {
+    show(post: Insect) {
       this.selectedPost = post;
       this.dialog = true;
     },

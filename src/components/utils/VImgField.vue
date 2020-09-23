@@ -78,7 +78,7 @@ export default defineComponent({
         if (newFile) {
           getBase64(newFile).then((image: string | ArrayBuffer | null) => {
             uploadedImage.value = image;
-            context.emit("change-file", uploadedImage.value);
+            context.emit("change-file", file);
           });
         } else {
           uploadedImage.value = null;

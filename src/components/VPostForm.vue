@@ -56,7 +56,7 @@ export default Vue.extend({
   }),
   methods: {
     async submit() {
-      if (!this.data.image || !this.data.title) {
+      if (!this.data.image || !this.data.name) {
         this.error = "項目に不足があります";
         return;
       }
@@ -75,7 +75,7 @@ export default Vue.extend({
       }
       this.isLoading = false;
     },
-    changeFile(uploadedImage: string | ArrayBuffer | null) {
+    changeFile(uploadedImage: File | null) {
       if (uploadedImage !== null) {
         this.data.image = uploadedImage;
       }
