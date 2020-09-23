@@ -75,7 +75,7 @@ export default Vue.extend({
       }
       this.isLoading = false;
     },
-    changeFile(uploadedImage: FormData | null) {
+    changeFile(uploadedImage: File | null) {
       if (uploadedImage !== null) {
         this.data.image = uploadedImage;
       }

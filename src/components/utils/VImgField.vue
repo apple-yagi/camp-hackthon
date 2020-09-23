@@ -71,6 +71,7 @@ export default defineComponent({
       const dt: DataTransfer | null = e.dataTransfer;
       if (dt) {
         file.value = dt.files[0];
+        context.emit("change-file", file);
       }
     };
 
