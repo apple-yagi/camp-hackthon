@@ -118,6 +118,7 @@ export default Vue.extend({
       try {
         // APIにPost
         const msg = await _insects.create(this.data);
+        await this.$store.dispatch('insects/load');
         this.$emit('close-dialog');
       } catch (err) {
         this.error = err;

@@ -15,7 +15,6 @@ export default {
   async create(post: CreateInsect): Promise<string> {
     try {
       const res = await axios.post(`${BaseUrl}insects`, post);
-      console.log(res.data);
       return Promise.resolve('success');
     } catch (error) {
       return Promise.reject('投稿に失敗しました');

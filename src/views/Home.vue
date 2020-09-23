@@ -4,12 +4,13 @@
       <v-progress-circular :size="50" width="7" color="primary" indeterminate />
     </div>
     <v-layout v-else justify-center>
-      <v-google-map-card :currentPosition="currentPosition" :posts="posts" />
+      <v-google-map-card :currentPosition="currentPosition" :posts="insects" />
     </v-layout>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import VGoogleMapCard from '@/components/VGoogleMapCard.vue';
 import {
   GeolocationPosition,
@@ -19,8 +20,9 @@ import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
 import _location from '@/utils/location';
 import _insects from '@/utils/insects';
 import { Insect } from '@/interfaces/insects';
+import { mapState } from 'vuex';
 
-export default {
+export default Vue.extend({
   name: 'Home',
   components: {
     VGoogleMapCard,
@@ -28,27 +30,15 @@ export default {
   data: () => ({
     loading: true,
     currentPosition: {},
-    posts: [],
     insectChannel: null,
   }),
-  // created() {
-  //   this.insectChannel = this.$cable.subscriptions.create(
-  //     { channel: 'InsectChannel' },
-  //     {
-  //       received(data) {
-  //         this.posts.push(data);
-  //       },
-  //     }
-  //   );
-  // },
   async mounted() {
     try {
       const result = await Promise.all([
-        _insects.fetchAll(),
+        this.$store.dispatch('insects/load'),
         _location.loadCurrentPosition(),
       ]);
 
-      this.posts = result[0];
       this.currentPosition = {
         position: {
           lat: result[1].coords.latitude,
@@ -60,7 +50,12 @@ export default {
     }
     this.loading = false;
   },
-};
+  computed: {
+    ...mapState('insects', {
+      insects: (state: any) => state.insects,
+    }),
+  },
+});
 </script>
 
 <style scoped>

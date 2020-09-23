@@ -3,6 +3,7 @@ import Vuex, { StoreOptions } from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import { RootState } from '@/interfaces/store';
 import { auth } from './auth';
+import { insects } from './insects';
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ const store: StoreOptions<RootState> = {
   },
   modules: {
     auth,
+    insects,
   },
   plugins: [
     createPersistedState({
