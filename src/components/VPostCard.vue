@@ -21,7 +21,7 @@
         <h3>コメント</h3>
         <h4 class="my-3" v-for="(comment, index) in comments" :key="index">
           <hr />
-          #{{ comment.id }}<br />
+          #{{ index + 1 }}<br />
           &nbsp;{{ comment.body }}
         </h4>
       </v-card-text>
