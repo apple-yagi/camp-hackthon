@@ -11,6 +11,15 @@
     <span v-for="(comment, i) in comments" :key="i">
       {{ comment.id }}:{{ comment.body }}
     </span>
+    <v-card-actions>
+      <v-textarea v-model="body" label="Comments" rows="5" />
+      <v-layout justify-end>
+        <v-btn @click="addComment">
+          ADD
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </v-layout>
+    </v-card-actions>
   </v-card>
 </template>
 

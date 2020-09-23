@@ -29,17 +29,18 @@ export default {
     loading: true,
     currentPosition: {},
     posts: [],
+    insectChannel: null,
   }),
-  created() {
-    this.orderChannel = this.$cable.subscriptions.create(
-      { channel: 'InsectChannel' },
-      {
-        received(data) {
-          this.posts.push(data);
-        },
-      }
-    );
-  },
+  // created() {
+  //   this.insectChannel = this.$cable.subscriptions.create(
+  //     { channel: 'InsectChannel' },
+  //     {
+  //       received(data) {
+  //         this.posts.push(data);
+  //       },
+  //     }
+  //   );
+  // },
   async mounted() {
     try {
       const result = await Promise.all([
