@@ -15,6 +15,7 @@
         :key="i"
         :position="{ lat: post.latitude, lng: post.longitude }"
         :clickable="true"
+        :draggable="true"
         :icon="flag"
         @click="show(post)"
       />
