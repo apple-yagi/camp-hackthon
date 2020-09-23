@@ -9,28 +9,37 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import VGoogleMapCard from "@/components/VGoogleMapCard.vue";
+<script>
+import VGoogleMapCard from '@/components/VGoogleMapCard.vue';
 import {
   GeolocationPosition,
   GeoError,
-} from "@/interfaces/geolocation-position";
-import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
-import _location from "@/utils/location";
-import _insects from "@/utils/insects";
-import { Insect } from "@/interfaces/insects";
+} from '@/interfaces/geolocation-position';
+import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
+import _location from '@/utils/location';
+import _insects from '@/utils/insects';
+import { Insect } from '@/interfaces/insects';
 
-export default Vue.extend({
-  name: "Home",
+export default {
+  name: 'Home',
   components: {
     VGoogleMapCard,
   },
   data: () => ({
     loading: true,
-    currentPosition: {} as GoogleMapsMarker,
-    posts: [] as Insect[],
+    currentPosition: {},
+    posts: [],
   }),
+  created() {
+    this.orderChannel = this.$cable.subscriptions.create(
+      { channel: 'InsectChannel' },
+      {
+        received(data) {
+          this.posts.push(data);
+        },
+      }
+    );
+  },
   async mounted() {
     try {
       const result = await Promise.all([
@@ -46,11 +55,11 @@ export default Vue.extend({
         },
       };
     } catch (error) {
-      alert("エラーが発生しました");
+      alert('エラーが発生しました');
     }
     this.loading = false;
   },
-});
+};
 </script>
 
 <style scoped>
