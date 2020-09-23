@@ -78,7 +78,7 @@ export default Vue.extend({
       }
       this.isLoading = false;
     },
-    changeFile(uploadedImage: Blob) {
+    changeFile(uploadedImage: File) {
       this.data.image = uploadedImage;
     },
     catchError(err: string) {

@@ -12,7 +12,7 @@ export interface Insect {
 export interface CreateInsect {
   name: string;
   description: string;
-  image: Blob;
+  image: File;
   latitude: number;
   longitude: number;
 }
