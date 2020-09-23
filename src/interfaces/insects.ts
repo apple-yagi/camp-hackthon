@@ -9,7 +9,7 @@ export interface Insect {
 
 export interface CreateInsect {
   name: string;
-  image: File;
+  image: FormData;
   latitude: number;
   longitude: number;
 }

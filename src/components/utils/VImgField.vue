@@ -13,6 +13,7 @@
             accept="image/png, image/jpeg, image/jpg, image/bmp"
             prepend-icon="mdi-camera"
             placeholder="画像ファイル(png, jpeg, jpg, bmp)を選択"
+            v-on:change="upload($event.target.files)"
           />
         </v-col>
       </v-row>
@@ -73,12 +74,17 @@ export default defineComponent({
       }
     };
 
+    const upload = (file: FileList) => {
+      const formData = new FormData();
+      formData.append("file", file[0]);
+      context.emit("change-file", formData);
+    };
+
     watch(file, (newFile, oldFile) => {
       if (checkExt(newFile)) {
         if (newFile) {
           getBase64(newFile).then((image: string | ArrayBuffer | null) => {
             uploadedImage.value = image;
-            context.emit("change-file", file);
           });
         } else {
           uploadedImage.value = null;
