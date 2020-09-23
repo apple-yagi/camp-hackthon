@@ -1,6 +1,8 @@
 export interface Insect {
   id: number;
   name: string;
+  description: string;
+  hour: string;
   image: string;
   category: string;
   latitude: number;
@@ -9,6 +11,7 @@ export interface Insect {
 
 export interface CreateInsect {
   name: string;
+  description: string;
   image: string | ArrayBuffer | null;
   latitude: number;
   longitude: number;

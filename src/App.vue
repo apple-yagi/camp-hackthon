@@ -4,7 +4,7 @@
       <div class="d-flex align-center">
         <v-icon large>mdi-access-point-network</v-icon>
 
-        <h1>Geolocation</h1>
+        <h1>InseCollection</h1>
       </div>
 
       <v-spacer />
