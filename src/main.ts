@@ -5,13 +5,6 @@ import store from './store';
 import vuetify from './plugins/vuetify';
 import VueCompositionApi from '@vue/composition-api';
 import * as VueGoogleMaps from 'vue2-google-maps';
-import ActionCable from 'actioncable';
-
-const cable = ActionCable.createConsumer(
-  'wss:campinsects.herokuapp.com/cable/'
-);
-
-// Vue.prototype.$cable = cable;
 
 Vue.use(VueCompositionApi);
 
