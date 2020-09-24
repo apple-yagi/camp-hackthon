@@ -19,10 +19,7 @@
         </div>
         <v-layout class="mt-3" justify-end>
           <v-like-button :insectId="post.id" />
-          <v-question-destroy-btn
-            v-if="uid === post.user_id && post.question"
-            :insectId="post.id"
-          />
+          <v-insect-edit-form v-if="uid === post.user_id" :post="post" />
           <v-btn
             v-if="uid === post.user_id"
             @click="deleteInsect"
@@ -82,7 +79,7 @@ import Vue, { PropType } from "vue";
 import { mapState } from "vuex";
 import VLikeButton from "@/components/VLikeButton.vue";
 import VUsername from "@/components/VUsername.vue";
-import VQuestionDestroyBtn from "@/components/VQuestionDestroyBtn.vue";
+import VInsectEditForm from "@/components/VInsectEditForm.vue";
 
 export default Vue.extend({
   props: {
@@ -94,7 +91,7 @@ export default Vue.extend({
   components: {
     VLikeButton,
     VUsername,
-    VQuestionDestroyBtn,
+    VInsectEditForm,
   },
   data: () => ({
     comment: {} as Comment,

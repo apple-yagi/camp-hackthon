@@ -4,7 +4,7 @@
       <v-text-field
         label="serach word"
         v-model="searchWord"
-        append-outer-icon="mdi-search-web"
+        append-outer-icon="mdi-magnify"
         @click:append-outer="search"
       ></v-text-field>
     </v-col>

@@ -14,3 +14,8 @@ export const emailRules = [
   (v: string) => !!v || 'E-mail is required',
   (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
 ];
+
+export const insectNameRules = [
+  (v: string) => !!v || 'Nameは必須項目です',
+  (v: string) => (v && v.length >= 2) || 'Nameは2文字以上入力してください',
+];

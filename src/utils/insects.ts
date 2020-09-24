@@ -76,4 +76,16 @@ export default {
       return Promise.reject('データの取得に失敗しました');
     }
   },
+
+  async update(insect: Insect): Promise<Insect> {
+    try {
+      const res: AxiosResponse<Insect> = await axios.put(
+        `${BaseUrl}insects/${insect.id}`,
+        insect
+      );
+      return Promise.resolve(res.data);
+    } catch (error) {
+      return Promise.reject('更新に失敗しました');
+    }
+  },
 };
