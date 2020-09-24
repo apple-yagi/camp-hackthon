@@ -22,6 +22,8 @@
         :clickable="true"
         :draggable="true"
         :icon="post.question ? question : flag"
+        width="16px"
+        height="16px"
         @click="show(post)"
       />
     </GmapMap>

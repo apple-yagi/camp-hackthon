@@ -27,17 +27,7 @@
           v-for="(question, i) in questions"
           :key="i"
         >
-          <v-card>
-            <v-img :src="question.image" alt="Question Image" />
-            <v-card-title>{{ question.name }}</v-card-title>
-            <v-card-subtitle
-              >時間帯：{{ question.hour }}<br />
-              {{ question.created_at }}
-            </v-card-subtitle>
-            <v-card-text>
-              {{ question.description }}
-            </v-card-text>
-          </v-card>
+          <v-post-card :post="question" />
         </v-col>
       </v-row>
     </v-card>
@@ -47,11 +37,17 @@
 <script lang="ts">
 import { Insect } from "@/interfaces/insects";
 import _question from "@/utils/question";
+import VPostCard from "@/components/VPostCard.vue";
 import Vue from "vue";
+import { mapState } from "vuex";
 
 export default Vue.extend({
+  components: {
+    VPostCard,
+  },
   data: () => ({
     dialog: false,
+    comment: {} as Comment,
     questions: [] as Insect[],
   }),
   methods: {

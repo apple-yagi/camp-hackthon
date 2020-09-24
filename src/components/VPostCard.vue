@@ -36,10 +36,10 @@
       <v-card-text>
         <h3>コメント</h3>
         <hr />
-        <h4 class="my-3" v-for="(comment, index) in comments" :key="index">
-          <v-username :uid="comment.user_id" /><br />
+        <span class="my-3" v-for="(comment, index) in comments" :key="index">
+          <v-username :uid="comment.user_id" />
           &nbsp;{{ comment.body }}
-        </h4>
+        </span>
       </v-card-text>
       <div v-if="uid">
         <v-row justify="center">
