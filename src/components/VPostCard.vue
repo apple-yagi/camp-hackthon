@@ -17,18 +17,18 @@
             投稿時間 {{ post.created_at }}
           </v-card-subtitle>
         </div>
-        <v-layout justify-end>
-          <v-like-button class="mt-5 mr-3" :insectId="post.id" />
+        <v-layout class="mt-3" justify-end>
+          <v-like-button :insectId="post.id" />
+          <v-btn
+            v-if="uid === post.user_id"
+            @click="deleteInsect"
+            :loading="isLoading"
+            color="teal darken-2"
+            icon
+          >
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
         </v-layout>
-        <v-btn
-          v-if="uid === post.user_id"
-          class="ml-3"
-          @click="deleteInsect"
-          :loading="isLoading"
-        >
-          delete
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
       </div>
       <v-card-text>
         <h3>{{ post.description }}</h3>
@@ -112,12 +112,16 @@ export default Vue.extend({
         this.comment.user_id = this.uid;
         await _comments.create(this.post.id, this.comment);
         await this.loadComments();
+        this.comment.body = "";
       } catch (err) {
         this.error = err;
       }
       this.isLoading = false;
     },
     async deleteInsect() {
+      if (!window.confirm("投稿を削除してもよろしいですか？")) {
+        return;
+      }
       this.isLoading = true;
       try {
         await _insects.remove(this.post.id);
