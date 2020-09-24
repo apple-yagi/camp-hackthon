@@ -7,13 +7,20 @@
         max-width="100%"
         alt="post image"
       />
-      <v-card-title class="headline font-weight-bold">{{
-        post.name
-      }}</v-card-title>
-      <v-card-subtitle>
-        時間帯 {{ post.hour }}<br />
-        投稿時間 {{ post.created_at }}
-      </v-card-subtitle>
+      <div class="d-flex">
+        <div>
+          <v-card-title class="headline font-weight-bold">{{
+            post.name
+          }}</v-card-title>
+          <v-card-subtitle>
+            時間帯 {{ post.hour }}<br />
+            投稿時間 {{ post.created_at }}
+          </v-card-subtitle>
+        </div>
+        <v-layout justify-end>
+          <v-like-button class="mt-5 mr-3" :insectId="post.id" />
+        </v-layout>
+      </div>
       <v-card-text>
         <h3>{{ post.description }}</h3>
       </v-card-text>
@@ -57,12 +64,13 @@
 </template>
 
 <script lang="ts">
-import { Insect } from '@/interfaces/insects';
-import _comments from '@/utils/comments';
-import _insects from '@/utils/insects';
-import { Comment } from '@/interfaces/comments';
-import Vue, { PropType } from 'vue';
-import { mapState } from 'vuex';
+import { Insect } from "@/interfaces/insects";
+import _comments from "@/utils/comments";
+import _insects from "@/utils/insects";
+import { Comment } from "@/interfaces/comments";
+import Vue, { PropType } from "vue";
+import { mapState } from "vuex";
+import VLikeButton from "@/components/VLikeButton.vue";
 
 export default Vue.extend({
   props: {
@@ -71,11 +79,15 @@ export default Vue.extend({
       required: true,
     },
   },
+  components: {
+    VLikeButton,
+  },
   data: () => ({
     comment: {} as Comment,
     comments: [] as Comment[],
     isLoading: false,
-    error: '',
+    clickedColor: "",
+    error: "",
   }),
   mounted() {
     this.loadComments();
@@ -102,12 +114,12 @@ export default Vue.extend({
       this.isLoading = true;
       try {
         await _insects.remove(this.post.id);
-        await this.$store.dispatch('insects/load');
+        await this.$store.dispatch("insects/load");
       } catch (err) {
         this.error = err;
       }
       this.isLoading = false;
-      this.$emit('close-dialog');
+      this.$emit("close-dialog");
     },
   },
   watch: {
@@ -116,7 +128,7 @@ export default Vue.extend({
     },
   },
   computed: {
-    ...mapState('auth', {
+    ...mapState("auth", {
       uid: (state: any) => state.id,
     }),
   },
