@@ -20,13 +20,24 @@
       </v-btn>
 
       <div v-else class="d-flex">
-        <v-btn class="mr-2" @click.stop="loginFormDialog = true" outlined>
+        <v-btn
+          class="mr-2 hidden-sm-and-down"
+          @click.stop="loginFormDialog = true"
+          outlined
+        >
           <span class="hidden-sm-and-down">ログイン</span>
           <v-icon>mdi-login</v-icon>
         </v-btn>
-        <v-btn class="mr-2" @click.stop="signupFormDialog = true" outlined>
+        <v-btn
+          class="mr-2 hidden-sm-and-down"
+          @click.stop="signupFormDialog = true"
+          outlined
+        >
           <span class="hidden-sm-and-down">サインアップ</span>
           <v-icon>mdi-account-check</v-icon>
+        </v-btn>
+        <v-btn class="hidden-sm-and-up" outlined @click.stop="drawer = true">
+          <v-icon>mdi-menu</v-icon>
         </v-btn>
       </div>
 
@@ -55,6 +66,32 @@
       </v-custom-dialog>
     </v-app-bar>
 
+    <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-list dense>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-login</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content @click.stop="loginFormDialog = true">
+            <v-list-item-title>ログイン</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider />
+
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-account-check</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content @click.stop="signupFormDialog = true">
+            <v-list-item-title>サインアップ</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-main class="base-setting">
       <router-view />
     </v-main>
@@ -62,16 +99,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import VCustomDialog from '@/components/utils/VCustomDialog.vue';
-import VPostForm from '@/components/VPostForm.vue';
-import VLoginForm from '@/components/VLoginForm.vue';
-import VSignupForm from '@/components/VSignupForm.vue';
-import { mapState } from 'vuex';
-import { AuthState } from './interfaces/store';
+import Vue from "vue";
+import VCustomDialog from "@/components/utils/VCustomDialog.vue";
+import VPostForm from "@/components/VPostForm.vue";
+import VLoginForm from "@/components/VLoginForm.vue";
+import VSignupForm from "@/components/VSignupForm.vue";
+import { mapState } from "vuex";
+import { AuthState } from "./interfaces/store";
 
 export default Vue.extend({
-  name: 'App',
+  name: "App",
   components: {
     VCustomDialog,
     VPostForm,
@@ -82,12 +119,13 @@ export default Vue.extend({
     postFormDialog: false,
     loginFormDialog: false,
     signupFormDialog: false,
-    postFormTitle: 'Post Form',
-    loginFormTitle: 'Login Form',
-    signupFormTitle: 'Signup Form',
+    postFormTitle: "Post Form",
+    loginFormTitle: "Login Form",
+    signupFormTitle: "Signup Form",
+    drawer: false,
   }),
   computed: {
-    ...mapState('auth', {
+    ...mapState("auth", {
       id: (state: any) => state.id,
     }),
   },
