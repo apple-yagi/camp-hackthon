@@ -37,7 +37,7 @@
         <h3>コメント</h3>
         <hr />
         <h4 class="my-3" v-for="(comment, index) in comments" :key="index">
-          #{{ index + 1 }}<br />
+          <v-username :uid="comment.user_id" /><br />
           &nbsp;{{ comment.body }}
         </h4>
       </v-card-text>
@@ -77,6 +77,7 @@ import { Comment } from "@/interfaces/comments";
 import Vue, { PropType } from "vue";
 import { mapState } from "vuex";
 import VLikeButton from "@/components/VLikeButton.vue";
+import VUsername from "@/components/VUsername.vue";
 
 export default Vue.extend({
   props: {
@@ -87,6 +88,7 @@ export default Vue.extend({
   },
   components: {
     VLikeButton,
+    VUsername,
   },
   data: () => ({
     comment: {} as Comment,

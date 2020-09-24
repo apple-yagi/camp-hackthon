@@ -3,6 +3,7 @@ export interface Insect {
   user_id: number;
   name: string;
   description: string;
+  question: boolean;
   hour: string;
   image: string;
   category: string;
@@ -13,6 +14,7 @@ export interface Insect {
 export interface CreateInsect {
   name: string;
   user_id: number;
+  question: boolean;
   description: string;
   image: string;
   latitude: number;

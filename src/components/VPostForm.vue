@@ -45,7 +45,7 @@
           }"
           :zoom="15"
           map-type-id="terrain"
-          style="width: 500px; height: 300px;"
+          style="width: 500px; height: 300px"
         >
           <GmapMarker
             :position="{
@@ -70,6 +70,9 @@
             Post
             <v-icon>mdi-telegram</v-icon>
           </v-btn>
+          <v-btn class="mr-3 mb-3" :loading="isLoading" @click="closeDialog">
+            Cancel</v-btn
+          >
         </v-layout>
       </v-card-actions>
     </v-form>
@@ -77,12 +80,12 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import VImgField from '@/components/utils/VImgField.vue';
-import { CreateInsect } from '@/interfaces/insects';
-import _insects from '@/utils/insects';
-import _location from '@/utils/location';
-import { mapState } from 'vuex';
+import Vue from "vue";
+import VImgField from "@/components/utils/VImgField.vue";
+import { CreateInsect } from "@/interfaces/insects";
+import _insects from "@/utils/insects";
+import _location from "@/utils/location";
+import { mapState } from "vuex";
 
 export default Vue.extend({
   components: {
@@ -94,11 +97,11 @@ export default Vue.extend({
     data: {} as CreateInsect,
     file: {} as File,
     currentPosition: {},
-    error: '',
+    error: "",
     titleRules: [
-      (v: string) => !!v || 'Name is required',
+      (v: string) => !!v || "Name is required",
       (v: string) =>
-        (v && v.length <= 15) || 'Name must be less than 15 characters',
+        (v && v.length <= 15) || "Name must be less than 15 characters",
     ],
     mapLoading: true,
     isLoading: false,
@@ -113,7 +116,7 @@ export default Vue.extend({
   methods: {
     async submit() {
       if (!this.file || !this.data.name) {
-        this.error = '項目に不足があります';
+        this.error = "項目に不足があります";
         return;
       }
       this.isLoading = true;
@@ -123,8 +126,8 @@ export default Vue.extend({
         // APIにPost
         this.data.user_id = this.uid;
         const msg = await _insects.create(this.data);
-        await this.$store.dispatch('insects/load');
-        this.$emit('close-dialog');
+        await this.$store.dispatch("insects/load");
+        this.$emit("close-dialog");
       } catch (err) {
         this.error = err;
       }
@@ -140,9 +143,12 @@ export default Vue.extend({
       this.data.latitude = location.latLng.lat();
       this.data.longitude = location.latLng.lng();
     },
+    closeDialog() {
+      this.$emit("close-dialog");
+    },
   },
   computed: {
-    ...mapState('auth', {
+    ...mapState("auth", {
       uid: (state: any) => state.id,
     }),
   },
