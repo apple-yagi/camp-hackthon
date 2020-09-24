@@ -65,4 +65,15 @@ export default {
       return Promise.reject('データの取得に失敗しました');
     }
   },
+
+  async find(searchWord: string): Promise<Insect[]> {
+    try {
+      const res: AxiosResponse<Insect[]> = await axios.get(
+        `${BaseUrl}insects?search=${searchWord}`
+      );
+      return Promise.resolve(res.data);
+    } catch (error) {
+      return Promise.reject('データの取得に失敗しました');
+    }
+  },
 };

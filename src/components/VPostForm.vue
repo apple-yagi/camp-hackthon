@@ -98,7 +98,7 @@ export default Vue.extend({
     valid: true,
     flag: process.env.VUE_APP_FLAG_ICON,
     data: {} as CreateInsect,
-    file: {} as File,
+    file: {} as File | null,
     currentPosition: {},
     error: "",
     titleRules: [
@@ -130,6 +130,8 @@ export default Vue.extend({
         this.data.user_id = this.uid;
         const msg = await _insects.create(this.data);
         await this.$store.dispatch("insects/load");
+        this.data.name = "";
+        this.file = null;
         this.$emit("close-dialog");
       } catch (err) {
         this.error = err;

@@ -2,7 +2,7 @@
   <v-card class="google-map-card" :color="cardColor">
     <v-card-title>
       <h3>Google Map</h3>
-      <v-spacer />
+      <v-search-field />
       <v-question-button />
       <v-hour-button />
     </v-card-title>
@@ -19,6 +19,7 @@ import VQuestionButton from "@/components/VQuestionButton.vue";
 import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
 import { Insect } from "@/interfaces/insects";
 import Vue, { PropType } from "vue";
+import VSearchField from "@/components/VSearchField.vue";
 
 export default Vue.extend({
   props: {
@@ -39,6 +40,7 @@ export default Vue.extend({
     VGoogleMap,
     VHourButton,
     VQuestionButton,
+    VSearchField,
   },
   data: () => ({
     cardColor: "",

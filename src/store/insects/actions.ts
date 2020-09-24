@@ -25,6 +25,18 @@ const actions: ActionTree<InsectsState, RootState> = {
       return Promise.reject(error);
     }
   },
+  findByWord: async ({ commit }, word: string): Promise<string> => {
+    try {
+      const insects = await _insects.find(word);
+      if (insects.length === 0) {
+        return Promise.reject('検索結果はありませんでした');
+      }
+      commit('set', insects);
+      return Promise.resolve('success');
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
 };
 
 export default actions;
