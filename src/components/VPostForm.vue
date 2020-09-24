@@ -58,6 +58,9 @@
           />
         </GmapMap>
       </v-row>
+      <v-layout justify-center>
+        <v-checkbox label="Question" v-model="data.question" />
+      </v-layout>
       <v-card-actions>
         <v-layout justify-end>
           <v-btn

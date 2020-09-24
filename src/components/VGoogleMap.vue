@@ -21,7 +21,7 @@
         :position="{ lat: post.latitude, lng: post.longitude }"
         :clickable="true"
         :draggable="true"
-        :icon="flag"
+        :icon="post.question ? question : flag"
         @click="show(post)"
       />
     </GmapMap>
@@ -38,11 +38,11 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue';
-import VCustomDialog from '@/components/utils/VCustomDialog.vue';
-import VPostCard from '@/components/VPostCard.vue';
-import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
-import { Insect } from '@/interfaces/insects';
+import Vue, { PropType } from "vue";
+import VCustomDialog from "@/components/utils/VCustomDialog.vue";
+import VPostCard from "@/components/VPostCard.vue";
+import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
+import { Insect } from "@/interfaces/insects";
 
 export default Vue.extend({
   props: {
@@ -61,8 +61,9 @@ export default Vue.extend({
   },
   data: () => ({
     flag: process.env.VUE_APP_FLAG_ICON,
+    question: process.env.VUE_APP_QUESTION_ICON,
     dialog: false,
-    title: 'Post Card',
+    title: "Post Card",
     selectedPost: {} as Insect,
   }),
   methods: {

@@ -3,6 +3,7 @@
     <v-card-title>
       <h3>Google Map</h3>
       <v-spacer />
+      <v-question-button />
       <v-hour-button />
     </v-card-title>
     <v-card-text>
@@ -14,6 +15,7 @@
 <script lang="ts">
 import VGoogleMap from "@/components/VGoogleMap.vue";
 import VHourButton from "@/components/VHourButton.vue";
+import VQuestionButton from "@/components/VQuestionButton.vue";
 import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
 import { Insect } from "@/interfaces/insects";
 import Vue, { PropType } from "vue";
@@ -36,6 +38,7 @@ export default Vue.extend({
   components: {
     VGoogleMap,
     VHourButton,
+    VQuestionButton,
   },
   data: () => ({
     cardColor: "",
