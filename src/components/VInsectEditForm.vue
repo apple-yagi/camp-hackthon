@@ -15,7 +15,14 @@
         </v-btn>
       </v-toolbar>
       <v-row justify="center">
-        <v-img :src="insect.image" alt="insect image" width="300px" />
+        <v-col cols="11" sm="8">
+          <v-img
+            class="mx-auto"
+            :src="insect.image"
+            alt="insect image"
+            width="300px"
+          />
+        </v-col>
         <v-col cols="11" sm="8">
           <v-alert type="error" v-show="error">{{ error }} </v-alert>
         </v-col>
