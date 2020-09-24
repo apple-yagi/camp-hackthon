@@ -18,7 +18,7 @@ export default {
   destroy(insectId: number): Promise<Insect> {
     return new Promise(async (resolve, reject) => {
       try {
-        const res: AxiosResponse<Insect> = await axios.patch(
+        const res: AxiosResponse<Insect> = await axios.get(
           `${BaseUrl}insects/destroy_question/${insectId}`
         );
         resolve(res.data);
