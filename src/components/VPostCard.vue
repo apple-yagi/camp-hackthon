@@ -20,45 +20,51 @@
         <v-layout justify-end>
           <v-like-button class="mt-5 mr-3" :insectId="post.id" />
         </v-layout>
+        <v-btn
+          v-if="uid === post.user_id"
+          class="ml-3"
+          @click="deleteInsect"
+          :loading="isLoading"
+        >
+          delete
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
       </div>
       <v-card-text>
         <h3>{{ post.description }}</h3>
       </v-card-text>
       <v-card-text>
         <h3>コメント</h3>
+        <hr />
         <h4 class="my-3" v-for="(comment, index) in comments" :key="index">
-          <hr />
           #{{ index + 1 }}<br />
           &nbsp;{{ comment.body }}
         </h4>
       </v-card-text>
-      <v-row justify="center">
-        <v-col cols="11">
-          <v-textarea
-            v-model="comment.body"
-            label="Comments"
-            outlined
-            rows="2"
-          />
-        </v-col>
-      </v-row>
-      <v-card-actions>
-        <v-layout justify-end>
-          <v-btn @click="addComment" :loading="isLoading" :disabled="isLoading">
-            add
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-          <v-btn
-            v-if="uid === post.user_id"
-            class="ml-3"
-            @click="deleteInsect"
-            :loading="isLoading"
-          >
-            delete
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-        </v-layout>
-      </v-card-actions>
+      <div v-if="uid">
+        <v-row justify="center">
+          <v-col cols="11">
+            <v-textarea
+              v-model="comment.body"
+              label="Comments"
+              outlined
+              rows="2"
+            />
+          </v-col>
+        </v-row>
+        <v-card-actions>
+          <v-layout justify-end>
+            <v-btn
+              @click="addComment"
+              :loading="isLoading"
+              :disabled="isLoading"
+            >
+              add
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </v-layout>
+        </v-card-actions>
+      </div>
     </v-container>
   </v-card>
 </template>
@@ -103,6 +109,7 @@ export default Vue.extend({
     async addComment() {
       this.isLoading = true;
       try {
+        this.comment.user_id = this.uid;
         await _comments.create(this.post.id, this.comment);
         await this.loadComments();
       } catch (err) {
