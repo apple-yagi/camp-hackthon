@@ -54,4 +54,15 @@ export default {
         });
     });
   },
+
+  async findHour(hour: string): Promise<Insect[]> {
+    try {
+      const res: AxiosResponse<Insect[]> = await axios.get(
+        `${BaseUrl}insects?sort=${hour}`
+      );
+      return Promise.resolve(res.data);
+    } catch (error) {
+      return Promise.reject('データの取得に失敗しました');
+    }
+  },
 };

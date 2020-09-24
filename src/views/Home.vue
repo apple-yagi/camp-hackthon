@@ -4,26 +4,30 @@
       <v-progress-circular :size="50" width="7" color="primary" indeterminate />
     </div>
     <v-layout v-else justify-center>
-      <v-google-map-card :currentPosition="currentPosition" :posts="insects" />
+      <v-google-map-card
+        :currentPosition="currentPosition"
+        :posts="insects"
+        :hour="hour"
+      />
     </v-layout>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import VGoogleMapCard from '@/components/VGoogleMapCard.vue';
+import Vue from "vue";
+import VGoogleMapCard from "@/components/VGoogleMapCard.vue";
 import {
   GeolocationPosition,
   GeoError,
-} from '@/interfaces/geolocation-position';
-import { GoogleMapsMarker } from '@/interfaces/google-maps-marker';
-import _location from '@/utils/location';
-import _insects from '@/utils/insects';
-import { Insect } from '@/interfaces/insects';
-import { mapState } from 'vuex';
+} from "@/interfaces/geolocation-position";
+import { GoogleMapsMarker } from "@/interfaces/google-maps-marker";
+import _location from "@/utils/location";
+import _insects from "@/utils/insects";
+import { Insect } from "@/interfaces/insects";
+import { mapState } from "vuex";
 
 export default Vue.extend({
-  name: 'Home',
+  name: "Home",
   components: {
     VGoogleMapCard,
   },
@@ -35,7 +39,7 @@ export default Vue.extend({
   async mounted() {
     try {
       const result = await Promise.all([
-        this.$store.dispatch('insects/load'),
+        this.$store.dispatch("insects/load"),
         _location.loadCurrentPosition(),
       ]);
 
@@ -46,13 +50,14 @@ export default Vue.extend({
         },
       };
     } catch (error) {
-      alert('エラーが発生しました');
+      alert("エラーが発生しました");
     }
     this.loading = false;
   },
   computed: {
-    ...mapState('insects', {
+    ...mapState("insects", {
       insects: (state: any) => state.insects,
+      hour: (state: any) => state.hour,
     }),
   },
 });

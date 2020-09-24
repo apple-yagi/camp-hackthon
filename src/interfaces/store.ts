@@ -13,4 +13,5 @@ export interface AuthState {
 
 export interface InsectsState {
   insects: Insect[];
+  hour: string;
 }

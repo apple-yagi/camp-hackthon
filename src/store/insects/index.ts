@@ -6,6 +6,7 @@ import mutations from './mutations';
 
 const state: InsectsState = {
   insects: [],
+  hour: 'all',
 };
 
 export const insects: Module<InsectsState, RootState> = {
