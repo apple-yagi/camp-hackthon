@@ -9,17 +9,7 @@
 
       <v-spacer />
 
-      <v-btn
-        v-if="id"
-        class="mr-2"
-        @click.stop="postFormDialog = true"
-        outlined
-      >
-        <span class="hidden-sm-and-down">投稿</span>
-        <v-icon>mdi-telegram</v-icon>
-      </v-btn>
-
-      <div v-else class="d-flex">
+      <div v-if="!id" class="d-flex">
         <v-btn
           class="mr-2 hidden-sm-and-down"
           @click.stop="loginFormDialog = true"
@@ -95,6 +85,17 @@
     <v-main class="base-setting">
       <router-view />
     </v-main>
+
+    <v-btn
+      v-if="id"
+      class="mr-2 post-button"
+      @click.stop="postFormDialog = true"
+      dark
+      color="indigo"
+      fab
+    >
+      <v-icon>mdi-telegram</v-icon>
+    </v-btn>
   </v-app>
 </template>
 
@@ -137,5 +138,19 @@ export default Vue.extend({
   background-color: whitesmoke;
   margin: 0;
   padding: 0;
+}
+
+.post-button {
+  position: absolute;
+  bottom: 40px;
+  right: 100px;
+  z-index: 99;
+}
+
+@media screen and (max-width: 500px) {
+  .post-button {
+    bottom: 10px;
+    right: 65px;
+  }
 }
 </style>
